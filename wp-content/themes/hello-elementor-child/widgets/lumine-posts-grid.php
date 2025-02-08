@@ -1,25 +1,31 @@
 <?php
 namespace Elementor;
 
-class Lumine_Posts_Grid_Widget extends Widget_Base {
+class Lumine_Posts_Grid_Widget extends Widget_Base
+{
 
-    public function get_name() {
+    public function get_name()
+    {
         return 'lumine_posts_grid';
     }
 
-    public function get_title() {
+    public function get_title()
+    {
         return __('Lumine Posts Grid', 'hello-elementor-child');
     }
 
-    public function get_icon() {
+    public function get_icon()
+    {
         return 'eicon-posts-grid';
     }
 
-    public function get_categories() {
+    public function get_categories()
+    {
         return ['lumine'];
     }
 
-    protected function register_controls() {
+    protected function register_controls()
+    {
         // Content Section
         $this->start_controls_section(
             'content_section',
@@ -286,20 +292,22 @@ class Lumine_Posts_Grid_Widget extends Widget_Base {
         $this->end_controls_section();
     }
 
-    private function get_post_categories() {
+    private function get_post_categories()
+    {
         $categories = get_categories();
         $options = ['all' => __('All Categories', 'hello-elementor-child')];
-        
+
         foreach ($categories as $category) {
             $options[$category->slug] = $category->name;
         }
-        
+
         return $options;
     }
 
-    protected function render() {
+    protected function render()
+    {
         $settings = $this->get_settings_for_display();
-        
+
         $args = [
             'post_type' => 'post',
             'posts_per_page' => $settings['posts_per_page'],
@@ -314,7 +322,7 @@ class Lumine_Posts_Grid_Widget extends Widget_Base {
 
         $query = new \WP_Query($args);
 
-        if ($query->have_posts()) : ?>
+        if ($query->have_posts()): ?>
             <style>
                 .lumine-posts-grid {
                     display: grid !important;
@@ -323,22 +331,27 @@ class Lumine_Posts_Grid_Widget extends Widget_Base {
                     justify-content: center !important;
                     width: 100% !important;
                 }
+
                 .lumine-post-card {
                     width: 376px !important;
                     height: 418px !important;
                 }
+
                 .lumine-post-image {
                     width: 376px !important;
                     height: 265px !important;
                     background-size: cover !important;
                     background-position: center !important;
                 }
+
                 .lumine-post-content {
                     width: 376px !important;
                     height: 163px !important;
-                    background: none;  /* Remove any theme background */
+                    background: none;
+                    /* Remove any theme background */
                     position: relative !important;
                 }
+
                 .lumine-post-content:before {
                     content: "" !important;
                     position: absolute !important;
@@ -348,14 +361,17 @@ class Lumine_Posts_Grid_Widget extends Widget_Base {
                     height: 1px !important;
                     background-color: currentColor !important;
                 }
+
                 /* Remove any other potential dividers */
                 .lumine-post-content .lumine-post-divider,
                 .lumine-post-content:after {
                     display: none !important;
                 }
+
                 .lumine-post-content-wrapper {
                     height: 100% !important;
                 }
+
                 .lumine-post-content .elementor-heading-title {
                     margin: 0 !important;
                     overflow: hidden !important;
@@ -365,9 +381,10 @@ class Lumine_Posts_Grid_Widget extends Widget_Base {
                 }
             </style>
             <div class="lumine-posts-grid">
-                <?php while ($query->have_posts()) : $query->the_post();
-                    $image_url = has_post_thumbnail() ? 
-                        get_the_post_thumbnail_url(get_the_ID(), 'large') : 
+                <?php while ($query->have_posts()):
+                    $query->the_post();
+                    $image_url = has_post_thumbnail() ?
+                        get_the_post_thumbnail_url(get_the_ID(), 'large') :
                         plugins_url('assets/placeholder.jpg', __FILE__);
                     ?>
                     <div class="lumine-post-card">

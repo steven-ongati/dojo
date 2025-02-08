@@ -65,12 +65,7 @@ Version: 1.0.0
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    border-radius: 50%;
-    background: #0B3455;
-    padding: 5px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
-    will-change: transform;
+    
 }
 
 .lumine-logo img {

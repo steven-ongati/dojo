@@ -1,24 +1,30 @@
 <?php
 namespace Elementor;
 
-class Lumine_Hero_Image_Widget extends Widget_Base {
-    public function get_name() {
+class Lumine_Hero_Image_Widget extends Widget_Base
+{
+    public function get_name()
+    {
         return 'lumine_hero_image';
     }
 
-    public function get_title() {
+    public function get_title()
+    {
         return __('Lumine Hero Image', 'hello-elementor-child');
     }
 
-    public function get_icon() {
+    public function get_icon()
+    {
         return 'eicon-image-before-after';
     }
 
-    public function get_categories() {
+    public function get_categories()
+    {
         return ['lumine'];
     }
 
-    protected function register_controls() {
+    protected function register_controls()
+    {
         // Image Section
         $this->start_controls_section(
             'section_image',
@@ -485,13 +491,13 @@ class Lumine_Hero_Image_Widget extends Widget_Base {
                 'size_units' => ['px', '%'],
                 'range' => [
                     'px' => [
-                        'min' => -200,
-                        'max' => 200,
+                        'min' => -1000,
+                        'max' => 1000,
                         'step' => 1,
                     ],
                     '%' => [
-                        'min' => -50,
-                        'max' => 50,
+                        'min' => -100,
+                        'max' => 100,
                         'step' => 1,
                     ],
                 ],
@@ -513,13 +519,13 @@ class Lumine_Hero_Image_Widget extends Widget_Base {
                 'size_units' => ['px', '%'],
                 'range' => [
                     'px' => [
-                        'min' => -200,
-                        'max' => 200,
+                        'min' => -1000,
+                        'max' => 1000,
                         'step' => 1,
                     ],
                     '%' => [
-                        'min' => -50,
-                        'max' => 50,
+                        'min' => -100,
+                        'max' => 100,
                         'step' => 1,
                     ],
                 ],
@@ -529,6 +535,34 @@ class Lumine_Hero_Image_Widget extends Widget_Base {
                 ],
                 'selectors' => [
                     '{{WRAPPER}} .lumine-hero-arc.arc1' => 'transform: rotate({{arc1_rotation.SIZE}}deg) translate({{arc1_offset_x.SIZE}}{{arc1_offset_x.UNIT}}, {{SIZE}}{{UNIT}});',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'arc1_size',
+            [
+                'label' => __('Arc 1 Size', 'hello-elementor-child'),
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'size_units' => ['px', '%'],
+                'range' => [
+                    'px' => [
+                        'min' => 100,
+                        'max' => 1000,
+                        'step' => 10,
+                    ],
+                    '%' => [
+                        'min' => 10,
+                        'max' => 200,
+                        'step' => 5,
+                    ],
+                ],
+                'default' => [
+                    'unit' => 'px',
+                    'size' => 500,
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .lumine-hero-arc.arc1' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -598,13 +632,13 @@ class Lumine_Hero_Image_Widget extends Widget_Base {
                 'size_units' => ['px', '%'],
                 'range' => [
                     'px' => [
-                        'min' => -200,
-                        'max' => 200,
+                        'min' => -1000,
+                        'max' => 1000,
                         'step' => 1,
                     ],
                     '%' => [
-                        'min' => -50,
-                        'max' => 50,
+                        'min' => -100,
+                        'max' => 100,
                         'step' => 1,
                     ],
                 ],
@@ -626,13 +660,13 @@ class Lumine_Hero_Image_Widget extends Widget_Base {
                 'size_units' => ['px', '%'],
                 'range' => [
                     'px' => [
-                        'min' => -200,
-                        'max' => 200,
+                        'min' => -1000,
+                        'max' => 1000,
                         'step' => 1,
                     ],
                     '%' => [
-                        'min' => -50,
-                        'max' => 50,
+                        'min' => -100,
+                        'max' => 100,
                         'step' => 1,
                     ],
                 ],
@@ -642,6 +676,34 @@ class Lumine_Hero_Image_Widget extends Widget_Base {
                 ],
                 'selectors' => [
                     '{{WRAPPER}} .lumine-hero-arc.arc2' => 'transform: rotate({{arc2_rotation.SIZE}}deg) translate({{arc2_offset_x.SIZE}}{{arc2_offset_x.UNIT}}, {{SIZE}}{{UNIT}});',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'arc2_size',
+            [
+                'label' => __('Arc 2 Size', 'hello-elementor-child'),
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'size_units' => ['px', '%'],
+                'range' => [
+                    'px' => [
+                        'min' => 100,
+                        'max' => 1000,
+                        'step' => 10,
+                    ],
+                    '%' => [
+                        'min' => 10,
+                        'max' => 200,
+                        'step' => 5,
+                    ],
+                ],
+                'default' => [
+                    'unit' => 'px',
+                    'size' => 500,
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .lumine-hero-arc.arc2' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -740,11 +802,101 @@ class Lumine_Hero_Image_Widget extends Widget_Base {
         );
 
         $this->end_controls_section();
+
+        // Responsive Controls Section
+        $this->start_controls_section(
+            'section_responsive',
+            [
+                'label' => __('Responsive Settings', 'hello-elementor-child'),
+                'tab' => Controls_Manager::TAB_STYLE,
+            ]
+        );
+
+        // Tablet Arc Scale
+        $this->add_responsive_control(
+            'arc_scale_tablet',
+            [
+                'label' => __('Arc Scale (Tablet)', 'hello-elementor-child'),
+                'type' => Controls_Manager::SLIDER,
+                'range' => [
+                    'px' => [
+                        'min' => 0.1,
+                        'max' => 1,
+                        'step' => 0.1,
+                    ],
+                ],
+                'default' => [
+                    'size' => 0.8,
+                ],
+                'tablet_default' => [
+                    'size' => 0.8,
+                ],
+                'selectors' => [
+                    '(tablet) {{WRAPPER}} .lumine-hero-arc' => 'transform: scale({{SIZE}});',
+                ],
+            ]
+        );
+
+        // Mobile Arc Scale
+        $this->add_responsive_control(
+            'arc_scale_mobile',
+            [
+                'label' => __('Arc Scale (Mobile)', 'hello-elementor-child'),
+                'type' => Controls_Manager::SLIDER,
+                'range' => [
+                    'px' => [
+                        'min' => 0.1,
+                        'max' => 1,
+                        'step' => 0.1,
+                    ],
+                ],
+                'default' => [
+                    'size' => 0.6,
+                ],
+                'mobile_default' => [
+                    'size' => 0.6,
+                ],
+                'selectors' => [
+                    '(mobile) {{WRAPPER}} .lumine-hero-arc' => 'transform: scale({{SIZE}});',
+                ],
+            ]
+        );
+
+        // Image Container Width
+        $this->add_responsive_control(
+            'image_container_width',
+            [
+                'label' => __('Image Container Width', 'hello-elementor-child'),
+                'type' => Controls_Manager::SLIDER,
+                'size_units' => ['%', 'px'],
+                'range' => [
+                    '%' => [
+                        'min' => 50,
+                        'max' => 100,
+                    ],
+                    'px' => [
+                        'min' => 200,
+                        'max' => 1200,
+                    ],
+                ],
+                'default' => [
+                    'unit' => '%',
+                    'size' => 100,
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .lumine-image' => 'width: {{SIZE}}{{UNIT}};',
+                ],
+                'devices' => ['desktop', 'tablet', 'mobile'],
+            ]
+        );
+
+        $this->end_controls_section();
     }
 
-    protected function render() {
+    protected function render()
+    {
         $settings = $this->get_settings_for_display();
-        
+
         if (empty($settings['image']['url'])) {
             return;
         }
@@ -752,6 +904,75 @@ class Lumine_Hero_Image_Widget extends Widget_Base {
         $this->add_render_attribute('wrapper', 'class', 'lumine-image-wrapper');
         $this->add_render_attribute('image', 'class', 'lumine-image');
         ?>
+        <style>
+            /* Base responsive container styles */
+            .lumine-image-wrapper {
+                position: relative;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            /* Tablet Styles */
+            @media (max-width: 1024px) {
+                .lumine-image-wrapper {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                .lumine-image {
+                    width: 100%;
+                    max-width: 100%;
+                    margin: 0 auto;
+                }
+
+                .lumine-hero-arc {
+                    transform-origin: center;
+                    /* Scale arcs slightly down for tablets */
+                    transform: scale(0.8);
+                }
+
+                .lumine-frame {
+                    position: relative;
+                    margin-top: 20px;
+                }
+            }
+
+            /* Mobile Styles */
+            @media (max-width: 767px) {
+                .lumine-image-wrapper {
+                    padding: 20px;
+                }
+
+                .lumine-image {
+                    width: 100%;
+                    margin: 0 auto;
+                }
+
+                .lumine-hero-arc {
+                    /* Scale arcs down more for mobile */
+                    transform: scale(0.6);
+                }
+
+                .lumine-frame {
+                    margin-top: 15px;
+                }
+
+                /* Ensure arcs don't overflow on mobile */
+                .lumine-hero-arcs {
+                    overflow: hidden;
+                    width: 100%;
+                    position: relative;
+                }
+            }
+
+            /* Maintain existing desktop styles */
+            @media (min-width: 1025px) {
+                .lumine-image-wrapper {
+                    display: block;
+                }
+            }
+        </style>
         <div <?php echo $this->get_render_attribute_string('wrapper'); ?>>
             <div <?php echo $this->get_render_attribute_string('image'); ?>>
                 <?php echo Group_Control_Image_Size::get_attachment_image_html($settings, 'image'); ?>
@@ -762,12 +983,12 @@ class Lumine_Hero_Image_Widget extends Widget_Base {
                 <div class="lumine-hero-arc arc2"></div>
             </div>
 
-            <?php if (!empty($settings['logo']['url'])) : ?>
-            <div class="lumine-frame">
-                <div class="lumine-logo">
-                    <img src="<?php echo esc_url($settings['logo']['url']); ?>" alt="Logo">
+            <?php if (!empty($settings['logo']['url'])): ?>
+                <div class="lumine-frame">
+                    <div class="lumine-logo">
+                        <img src="<?php echo esc_url($settings['logo']['url']); ?>" alt="Logo">
+                    </div>
                 </div>
-            </div>
             <?php endif; ?>
         </div>
         <?php
