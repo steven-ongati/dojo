@@ -443,11 +443,13 @@ Version: 1.0.0
 .lumine-featured-card-content-wrapper {
     padding-left: 38px;
     padding-right: 73px;
+    padding-top: 35px;
 }
 
 .lumine-featured-card-title {
-    margin-top: 50px;
+    margin-top: 0;
     margin-bottom: 15px;
+    
 }
 
 .lumine-featured-card-content {
