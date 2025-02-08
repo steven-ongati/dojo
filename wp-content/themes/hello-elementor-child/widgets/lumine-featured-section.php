@@ -1,30 +1,24 @@
 <?php
 namespace Elementor;
 
-class Lumine_Featured_Section_Widget extends Widget_Base
-{
-    public function get_name()
-    {
+class Lumine_Featured_Section_Widget extends Widget_Base {
+    public function get_name() {
         return 'lumine_featured_section';
     }
 
-    public function get_title()
-    {
+    public function get_title() {
         return __('Lumine Featured Section', 'hello-elementor-child');
     }
 
-    public function get_icon()
-    {
+    public function get_icon() {
         return 'eicon-featured-image';
     }
 
-    public function get_categories()
-    {
+    public function get_categories() {
         return ['lumine'];
     }
 
-    protected function register_controls()
-    {
+    protected function register_controls() {
         // Image Section
         $this->start_controls_section(
             'section_image',
@@ -767,380 +761,67 @@ class Lumine_Featured_Section_Widget extends Widget_Base
         );
 
         $this->end_controls_section();
-
-        // Responsive Controls Section
-        $this->start_controls_section(
-            'section_responsive',
-            [
-                'label' => __('Responsive Settings', 'hello-elementor-child'),
-                'tab' => Controls_Manager::TAB_STYLE,
-            ]
-        );
-
-        $this->add_responsive_control(
-            'mobile_card_width',
-            [
-                'label' => __('Card Width (Mobile/Tablet)', 'hello-elementor-child'),
-                'type' => Controls_Manager::SLIDER,
-                'size_units' => ['%', 'px'],
-                'range' => [
-                    '%' => [
-                        'min' => 50,
-                        'max' => 100,
-                    ],
-                    'px' => [
-                        'min' => 200,
-                        'max' => 800,
-                    ],
-                ],
-                'default' => [
-                    'unit' => '%',
-                    'size' => 90,
-                ],
-                'selectors' => [
-                    '(tablet) {{WRAPPER}} .lumine-featured-card' => 'width: {{SIZE}}{{UNIT}} !important;',
-                    '(mobile) {{WRAPPER}} .lumine-featured-card' => 'width: {{SIZE}}{{UNIT}} !important;',
-                ],
-            ]
-        );
-
-        $this->add_responsive_control(
-            'mobile_spacing',
-            [
-                'label' => __('Vertical Spacing', 'hello-elementor-child'),
-                'type' => Controls_Manager::SLIDER,
-                'size_units' => ['px'],
-                'range' => [
-                    'px' => [
-                        'min' => 0,
-                        'max' => 100,
-                        'step' => 5,
-                    ],
-                ],
-                'default' => [
-                    'unit' => 'px',
-                    'size' => 30,
-                ],
-                'selectors' => [
-                    '(tablet) {{WRAPPER}} .lumine-featured-card' => 'margin-top: {{SIZE}}{{UNIT}};',
-                    '(mobile) {{WRAPPER}} .lumine-featured-card' => 'margin-top: {{SIZE}}{{UNIT}};',
-                ],
-            ]
-        );
-
-        $this->end_controls_section();
-
-        // Responsive Layout Section
-        $this->start_controls_section(
-            'section_responsive_layout',
-            [
-                'label' => __('Responsive Layout', 'hello-elementor-child'),
-                'tab' => Controls_Manager::TAB_STYLE,
-            ]
-        );
-
-        $this->add_control(
-            'stack_on_mobile',
-            [
-                'label' => __('Stack on Mobile', 'hello-elementor-child'),
-                'type' => Controls_Manager::SWITCHER,
-                'default' => 'yes',
-                'prefix_class' => 'lumine-stack-mobile-',
-            ]
-        );
-
-        $this->add_responsive_control(
-            'content_alignment',
-            [
-                'label' => __('Content Alignment', 'hello-elementor-child'),
-                'type' => Controls_Manager::CHOOSE,
-                'options' => [
-                    'left' => [
-                        'title' => __('Left', 'hello-elementor-child'),
-                        'icon' => 'eicon-text-align-left',
-                    ],
-                    'center' => [
-                        'title' => __('Center', 'hello-elementor-child'),
-                        'icon' => 'eicon-text-align-center',
-                    ],
-                ],
-                'default' => 'center',
-                'selectors' => [
-                    '{{WRAPPER}} .lumine-featured-card' => 'text-align: {{VALUE}};',
-                ],
-            ]
-        );
-
-        $this->add_responsive_control(
-            'section_padding',
-            [
-                'label' => __('Section Padding', 'hello-elementor-child'),
-                'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', 'em', '%'],
-                'selectors' => [
-                    '{{WRAPPER}} .lumine-featured-mobile .mobile-container' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                ],
-                'default' => [
-                    'top' => '40',
-                    'right' => '20',
-                    'bottom' => '40',
-                    'left' => '20',
-                    'unit' => 'px',
-                    'isLinked' => false,
-                ],
-            ]
-        );
-
-        $this->add_responsive_control(
-            'spacing_between',
-            [
-                'label' => __('Spacing Between Elements', 'hello-elementor-child'),
-                'type' => Controls_Manager::SLIDER,
-                'size_units' => ['px'],
-                'range' => [
-                    'px' => [
-                        'min' => 0,
-                        'max' => 100,
-                        'step' => 1,
-                    ],
-                ],
-                'default' => [
-                    'unit' => 'px',
-                    'size' => 24,
-                ],
-                'selectors' => [
-                    '{{WRAPPER}} .lumine-featured-mobile .mobile-image' => 'margin-bottom: {{SIZE}}{{UNIT}};',
-                ],
-            ]
-        );
-
-        $this->end_controls_section();
     }
 
-    protected function render()
-    {
+    protected function render() {
         $settings = $this->get_settings_for_display();
         ?>
-                <style>
-                    /* Base styles */
-                    .lumine-featured-section {
-                        position: relative;
-                        width: 100%;
-                    }
+        <style>
+            .lumine-featured-card {
+                background: none;  /* Remove any theme background */
+            }
+        </style>
+        <div class="lumine-featured-section">
+            <?php if ($settings['layout'] === 'image-right') : ?>
+                <div class="lumine-featured-card">
+                    <div class="lumine-featured-card-content-wrapper">
+                        <?php if (!empty($settings['card_title'])) : ?>
+                            <h2 class="lumine-featured-card-title elementor-heading-title elementor-size-default"><?php echo esc_html($settings['card_title']); ?></h2>
+                        <?php endif; ?>
 
-                    .lumine-featured-card {
-                        background: none;
-                    }
+                        <?php if (!empty($settings['card_content'])) : ?>
+                            <div class="lumine-featured-card-content elementor-widget-container"><?php echo wp_kses_post($settings['card_content']); ?></div>
+                        <?php endif; ?>
 
-                    /* Desktop styles */
-                    @media (min-width: 1025px) {
-                        .lumine-featured-mobile {
-                            display: none;
-                        }
-                    }
-
-                    /* Mobile & Tablet styles */
-                    @media (max-width: 1024px) {
-
-                        /* Reset parent containers */
-                        .elementor-section.elementor-section-boxed>.elementor-container {
-                            max-width: none !important;
-                            padding: 0 !important;
-                            margin: 0 !important;
-                            width: 100% !important;
-                        }
-
-                        .elementor-widget-lumine_featured_section {
-                            margin: 0 !important;
-                            padding: 0 !important;
-                            width: 100% !important;
-                        }
-
-                        /* Force background rendering */
-                        .elementor-section {
-                            background-size: cover !important;
-                            background-position: center !important;
-                            background-repeat: no-repeat !important;
-                        }
-
-                        /* Hide desktop version */
-                        .lumine-featured-section:not(.lumine-featured-mobile) {
-                            display: none;
-                        }
-
-                        /* Mobile section container */
-                        .lumine-featured-mobile {
-                            width: 100%;
-                            background: transparent;
-                            position: relative;
-                            z-index: 1;
-                        }
-
-                        /* Content wrapper */
-                        .lumine-featured-mobile .mobile-container {
-                            width: 90%;
-                            max-width: 540px;
-                            margin: 0 auto;
-                            padding: 40px 0;
-                            position: relative;
-                            z-index: 2;
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                            gap: 30px;
-                        }
-
-                        /* Image styling */
-                        .lumine-featured-mobile .mobile-image {
-                            width: 100%;
-                            max-width: 480px;
-                            position: relative;
-                            z-index: 2;
-                        }
-
-                        .lumine-featured-mobile .mobile-image img {
-                            width: 100%;
-                            height: auto;
-                            display: block;
-                            border-radius: 4px;
-                        }
-
-                        /* Card styling */
-                        .lumine-featured-mobile .lumine-featured-card {
-                            width: 100%;
-                            max-width: 480px;
-                            background: var(--e-global-color-secondary, #F7D37F);
-                            padding: 35px 25px;
-                            border-radius: 8px;
-                            text-align: center;
-                            position: relative;
-                            z-index: 2;
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                        }
-
-                        .lumine-featured-mobile .lumine-featured-card-title {
-                            font-size: 24px;
-                            line-height: 1.3;
-                            margin-bottom: 15px;
-                            width: 100%;
-                        }
-
-                        .lumine-featured-mobile .lumine-featured-card-content {
-                            margin-bottom: 25px;
-                            width: 100%;
-                            max-width: 400px;
-                        }
-
-                        .lumine-featured-mobile .lumine-featured-button {
-                            display: inline-block;
-                            padding: 12px 35px;
-                            border-radius: 50px;
-                            background: var(--e-global-color-accent, #C0392B);
-                            color: #fff;
-                            text-decoration: none;
-                            text-align: center;
-                            min-width: 160px;
-                        }
-                    }
-
-                    /* Small mobile adjustments */
-                    @media (max-width: 767px) {
-                        .lumine-featured-mobile .mobile-container {
-                            width: 92%;
-                            padding: 30px 0;
-                            gap: 24px;
-                        }
-                    }
-                </style>
-
-                <!-- Desktop Version -->
-                <div class="lumine-featured-section">
-                    <?php $this->render_desktop_layout($settings); ?>
-                </div>
-
-                <!-- Mobile Version -->
-                <div class="lumine-featured-mobile lumine-featured-section" data-layout="<?php echo esc_attr($settings['layout']); ?>">
-                    <div class="mobile-container">
-                        <div class="lumine-featured-card">
-                            <?php $this->render_card_content($settings); ?>
-                        </div>
-                        <div class="mobile-image">
-                            <?php if (!empty($settings['image']['url'])): ?>
-                                    <img src="<?php echo esc_url($settings['image']['url']); ?>"
-                                        alt="<?php echo esc_attr($settings['card_title']); ?>">
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </div>
-                <?php
-    }
-
-    // Helper function to render card content
-    protected function render_card_content($settings)
-    {
-        ?>
-                <div class="lumine-featured-card-content-wrapper">
-                    <?php if (!empty($settings['card_title'])): ?>
-                            <h2 class="lumine-featured-card-title elementor-heading-title elementor-size-default">
-                                <?php echo esc_html($settings['card_title']); ?>
-                            </h2>
-                    <?php endif; ?>
-
-                    <?php if (!empty($settings['card_content'])): ?>
-                            <div class="lumine-featured-card-content elementor-widget-container">
-                                <?php echo wp_kses_post($settings['card_content']); ?>
-                            </div>
-                    <?php endif; ?>
-
-                    <?php if (!empty($settings['button_text'])): ?>
-                            <a class="lumine-featured-button" href="<?php echo esc_url($settings['button_link']['url']); ?>" <?php echo $settings['button_link']['is_external'] ? 'target="_blank"' : ''; ?>                         <?php echo $settings['button_link']['nofollow'] ? 'rel="nofollow"' : ''; ?>>
+                        <?php if (!empty($settings['button_text'])) : ?>
+                            <a class="lumine-featured-button" href="<?php echo esc_url($settings['button_link']['url']); ?>"
+                               <?php echo $settings['button_link']['is_external'] ? 'target="_blank"' : ''; ?>
+                               <?php echo $settings['button_link']['nofollow'] ? 'rel="nofollow"' : ''; ?>>
                                 <?php echo esc_html($settings['button_text']); ?>
                             </a>
-                    <?php endif; ?>
+                        <?php endif; ?>
+                    </div>
                 </div>
-                <?php
-    }
-
-    // Helper function to render desktop layout
-    protected function render_desktop_layout($settings)
-    {
-        // Move existing desktop layout code here
-        if ($settings['layout'] === 'image-right') {
-            $this->render_right_layout($settings);
-        } else {
-            $this->render_left_layout($settings);
-        }
-    }
-
-    // Helper function for right layout
-    protected function render_right_layout($settings)
-    {
-        ?>
+            <?php endif; ?>
+            
+            <div class="lumine-featured-image">
+                <?php if (!empty($settings['image']['url'])) : ?>
+                    <img src="<?php echo esc_url($settings['image']['url']); ?>" alt="<?php echo esc_attr($settings['card_title']); ?>">
+                <?php endif; ?>
+            </div>
+            
+            <?php if ($settings['layout'] === 'image-left') : ?>
                 <div class="lumine-featured-card">
-                    <?php $this->render_card_content($settings); ?>
-                </div>
-                <div class="lumine-featured-image">
-                    <?php if (!empty($settings['image']['url'])): ?>
-                            <img src="<?php echo esc_url($settings['image']['url']); ?>" alt="<?php echo esc_attr($settings['card_title']); ?>">
-                    <?php endif; ?>
-                </div>
-                <?php
-    }
+                    <div class="lumine-featured-card-content-wrapper">
+                        <?php if (!empty($settings['card_title'])) : ?>
+                            <h2 class="lumine-featured-card-title elementor-heading-title elementor-size-default"><?php echo esc_html($settings['card_title']); ?></h2>
+                        <?php endif; ?>
 
-    // Helper function for left layout
-    protected function render_left_layout($settings)
-    {
-        ?>
-                <div class="lumine-featured-image">
-                    <?php if (!empty($settings['image']['url'])): ?>
-                            <img src="<?php echo esc_url($settings['image']['url']); ?>" alt="<?php echo esc_attr($settings['card_title']); ?>">
-                    <?php endif; ?>
+                        <?php if (!empty($settings['card_content'])) : ?>
+                            <div class="lumine-featured-card-content elementor-widget-container"><?php echo wp_kses_post($settings['card_content']); ?></div>
+                        <?php endif; ?>
+
+                        <?php if (!empty($settings['button_text'])) : ?>
+                            <a class="lumine-featured-button" href="<?php echo esc_url($settings['button_link']['url']); ?>"
+                               <?php echo $settings['button_link']['is_external'] ? 'target="_blank"' : ''; ?>
+                               <?php echo $settings['button_link']['nofollow'] ? 'rel="nofollow"' : ''; ?>>
+                                <?php echo esc_html($settings['button_text']); ?>
+                            </a>
+                        <?php endif; ?>
+                    </div>
                 </div>
-                <div class="lumine-featured-card">
-                    <?php $this->render_card_content($settings); ?>
-                </div>
-                <?php
+            <?php endif; ?>
+        </div>
+        <?php
     }
 }

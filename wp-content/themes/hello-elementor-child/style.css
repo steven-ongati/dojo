@@ -79,10 +79,13 @@ Version: 1.0.0
 /* Hero Image Widget Styles */
 .lumine-hero-image-container {
     position: relative;
-    width: 100%;
-    padding-bottom: 0;
+    width: 100vw !important; /* Force full viewport width */
+    margin-left: calc(-50vw + 50%) !important; /* Negative margin trick to break out of container */
+    margin-right: calc(-50vw + 50%) !important;
+    padding: 0 !important;
     display: flex;
     justify-content: flex-end;
+    overflow: hidden; /* Prevent horizontal scroll */
 }
 
 .lumine-hero-image {
@@ -197,6 +200,25 @@ Version: 1.0.0
 .lumine-hero-text p {
     max-width: 480px;
     opacity: 0.9;
+}
+
+/* Ensure parent containers don't restrict width */
+.elementor-section.elementor-section-boxed > .elementor-container {
+    max-width: none !important;
+    padding: 0 !important;
+    width: 100% !important;
+}
+
+/* Reset any potential padding on parent sections */
+.elementor-section {
+    padding: 0 !important;
+}
+
+@media (max-width: 1024px) {
+    .lumine-hero-image-container {
+        width: 100% !important;
+        margin: 0 !important;
+    }
 }
 
 /* Responsive Overrides */
