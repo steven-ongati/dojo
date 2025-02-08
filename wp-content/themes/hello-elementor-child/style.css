@@ -37,7 +37,7 @@ Version: 1.0.0
     width: 100%;
     height: auto;
     display: block;
-    border-radius: 500px 500px 0 0;
+    border-radius: 1000px 1000px 0 0;
     transition: all 0.3s ease;
     object-fit: cover;
 }
@@ -113,33 +113,47 @@ Version: 1.0.0
     pointer-events: none;
     overflow: visible;
     z-index: 2;
+    border-radius: inherit;
 }
 
 .lumine-hero-arc {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: -20%;
+    left: -10%;
+    width: 120%;
+    height: 140%;
     border-style: solid;
-    border-color: transparent;
-    border-radius: inherit;
-    border-bottom: 0;
-    border-left: 0;
-    border-right: 0;
+    border-width: 2px;
+    border-color: currentColor;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
     transform-origin: top center;
     transition: all 0.3s ease;
     will-change: transform, opacity;
+    box-sizing: border-box;
 }
 
 .lumine-hero-arc.arc1 {
     z-index: 1;
-    border-radius: 500px 500px 0 0;
+    border-radius: inherit;
+    width: calc(100% + 200px);
+    left: -100px;
+    border-top-left-radius: 1000px;
+    border-top-right-radius: 1000px;
+    border-top-width: 2px;
+    border-top-style: solid;
 }
 
 .lumine-hero-arc.arc2 {
     z-index: 2;
-    border-radius: 500px 500px 0 0;
+    border-radius: inherit;
+    width: calc(100% + 200px);
+    left: -100px;
+    border-top-left-radius: 1000px;
+    border-top-right-radius: 1000px;
+    border-top-width: 2px;
+    border-top-style: solid;
 }
 
 .lumine-hero-logo {
@@ -164,7 +178,7 @@ Version: 1.0.0
 
 /* Hero Image Curvature */
 .lumine-hero-image img {
-    border-radius: 500px 500px 0 0 !important;
+    border-radius: 1000px 1000px 0 0 !important;
     transform: translateX(-20px);
 }
 
